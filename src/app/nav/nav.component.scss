@@ -1,10 +1,11 @@
 header {
     background: rgb(47, 66, 128);
 
-    .logo {
-        font-weight: bold;
-    }
+    .container {
 
+        grid-template-columns: 30% auto;
+
+    }
     nav {
         justify-self: right;
     
