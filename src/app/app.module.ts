@@ -8,6 +8,9 @@ import { SearchComponent } from './search/search.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './register/register.component';
+import { HeaderLargeComponent } from './header.large/header.large.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +19,14 @@ import { LoginComponent } from './login/login.component';
     SearchComponent,
     AboutComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    HeaderLargeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
