@@ -1,4 +1,24 @@
 <app-nav></app-nav>
-<p>
-  search works!
-</p>
+<div class="topnav">
+  <div class="search-container">
+    <form (submit) = 'search($event)'>
+      <input type="text" placeholder="Search.." id = 'keywords'>
+      <input type="submit" value = 'Search'>
+    </form>
+  </div>
+</div>
+
+<button (click) = 'loginFacebook()' class = 'btn'>Add Facebook account</button>
+<!-- <button (click) = 'logout()' class = 'btn'>Logout</button>
+
+<div   class="fb-login-button" data-size="large" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
+<div id="fb-root"></div> -->
+
+<ul>
+  <li *ngFor = 'let result of results'>
+    <!-- <div class="fb-post" data-href= "{{result.permalink_url}}" >  </div> -->
+    {{this.result}}
+  </li>
+</ul>
+
+

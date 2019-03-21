@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppManagerService } from '../_services/app-manager.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    private appManager: AppManagerService,
+    private router: Router
+  ) { 
+    
   }
+
+  ngOnInit(){}
 
 }

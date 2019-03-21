@@ -18,6 +18,8 @@ export class RegisterComponent implements OnInit {
     const target = event.target
 
     //Get entered email and password from the event
+    const fName: String = target.querySelector("#fName").value
+    const lName: String = target.querySelector("#lName").value
     const email: String = target.querySelector("#email").value
     const password: String = target.querySelector("#password").value
     const cpass: String = target.querySelector("#cpass").value
@@ -25,9 +27,12 @@ export class RegisterComponent implements OnInit {
     if (password === cpass){
 
       //Pass email and password for authentication to Database service
-      this.database.registerUser(email, password).subscribe(
+      this.database.registerUser(fName, lName, email, password).subscribe(
         data => {
-          console.log(data)
+          window.alert(data.message);
+          if (data.success) {
+            
+          }
         }
       );
 
