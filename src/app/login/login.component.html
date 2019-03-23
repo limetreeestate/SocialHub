@@ -1,10 +1,8 @@
 <app-header-large></app-header-large>
 
 <div class='container'>
-    <form (submit)='login($event)'>
-        <input type='email' id='email' placeholder='Email'> <br>
-        <input type='password' id='password' placeholder='Password'> <br>
-        <input type='submit' class='button' id='submit' value='Login'>
-        <a routerLink='/register' class='button'> Sign up</a>
-    </form>
+    <input [(ngModel)]='email' type='email' id='email' placeholder='Email'>
+    <input [(ngModel)]='password' type='password' id='password' placeholder='Password'>
+    <button id='submit' (click)='login()'> Login </button>
+    <button id='submit' routerLink='/register'> Sign up </button>
 </div>
