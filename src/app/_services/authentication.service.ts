@@ -26,7 +26,7 @@ interface RegisterData {
 @Injectable({
   providedIn: 'root'
 })
-export class DatabaseService {
+export class AuthService {
 
   private _loginURL: string = "http://localhost:8080/api/login"
   private _registerURL: string = "http://localhost:8080/api/register"

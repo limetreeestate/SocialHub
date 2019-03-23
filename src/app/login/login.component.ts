@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from '../_services/database.service';
+import { AuthService } from '../_services/authentication.service';
 import { AppManagerService } from '../_services/app-manager.service';
 import { User } from '../_models/User';
 import { Router } from '@angular/router';
@@ -13,10 +13,10 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private database: DatabaseService,
+    private _auth: AuthService,
     private appManager: AppManagerService,
     private _router: Router
-    ) { }
+  ) { }
 
     private email: string;
     private password: string;
@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    //Pass email and password for authentication to Database service
-    this.database.authenticateUser(this.email, this.password)
+    //Pass email and password for authentication to authentication service
+    this._auth.authenticateUser(this.email, this.password)
       .subscribe(
         data => {
           window.alert(data.message);

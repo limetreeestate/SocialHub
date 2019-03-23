@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from '../_services/database.service';
+import { AuthService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -8,7 +8,7 @@ import { DatabaseService } from '../_services/database.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private database: DatabaseService) { }
+  constructor(private _auth: AuthService) { }
 
   ngOnInit() {
   }
@@ -23,8 +23,8 @@ export class RegisterComponent implements OnInit {
 
     if (this.password === this.cpass){
 
-      //Pass email and password for authentication to Database service
-      this.database.registerUser(this.fName, this.lName, this.email, this.password)
+      //Pass email and password for authentication to authentication service
+      this._auth.registerUser(this.fName, this.lName, this.email, this.password)
         .subscribe(
           data => {
             window.alert(data.message);
