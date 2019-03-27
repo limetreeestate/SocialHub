@@ -44,7 +44,7 @@ input {
     text-decoration: none;
 }
 
-input[type=submit] {
+input[type=submit], button {
     width: 100%;
     padding: 12px;
     border: none;
@@ -56,3 +56,4 @@ input[type=submit] {
     line-height: 20px;
     text-decoration: none;
 }
+
