@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 //Create schema for user colection
 const UserSchema = new mongoose.Schema({
     
-    fname: String,
+    fName: String,
     lName: String,
     email: String,
     password: String,

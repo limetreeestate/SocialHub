@@ -36,13 +36,12 @@ router.post("/register", async (request, response) => {
     const md5Hash = crypto.createHash("md5")
 
     //Hash password
-    password = md5Hash.update(password).digest("hex");
+    userData.password = md5Hash.update(userData.password).digest("hex");
 
     const user = new User(userData);
 
-    console.log(userData);
-
     //Check if user exists
+    const email = userData.email;
     let isExistingUser = await User.findOne({email});
 
 
@@ -54,17 +53,12 @@ router.post("/register", async (request, response) => {
     //Await till respones comes
     user.save((err, res) => {
         if (err) {
-            response.status(401).send("Error in registration")
+            response.status(401).send("Error in registration");
         } else {
-            let payload = {
-                subject : {
-                    'success': true,
-                    'message': "Successful registration",
-                }
-            };
-
-            let token = jwt.sign(payload, _SECRET_KEY);
-            response.status(200).send({token})
+            response.status(200).json({
+                'success': true,
+                'message': "Successful registration",
+            });
         }
     });
 
@@ -134,10 +128,13 @@ function verifyUser(request, response, next) {
 
 //Verify user based on JWT token
 router.post("/verify", verifyUser, (request, response) => {
-    const userID = request.body.email
+    const {fields, userID} = request.body
+    const project = {}
+    
+    fields.forEach(element => project[element] = 1);
 
-    User.findOne({userID}, (err, res) => {
-        if (!err) response.status(200).json(res.lName);
+    User.findOne({userID}, project, (err, res) => {
+        if (!err) response.status(200).json(res);
         else response.status(401).json(err);
     });
 });
