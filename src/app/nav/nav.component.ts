@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -8,16 +9,22 @@ import { Title } from '@angular/platform-browser';
 })
 export class NavComponent implements OnInit {
 
-  private title: String = "SocialHub";
-
-  constructor() { }
+  constructor(
+    private _router: Router
+  ) { }
 
   ngOnInit() {
   }
 
-  public getTitle()
-  {
-    return this.title;
+  public get title(): string {
+    return "SocialHub"
   }
+
+  private logout() {
+    localStorage.removeItem("token")
+    this._router.navigate(["login"])
+  }
+
+
 
 }

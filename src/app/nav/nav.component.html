@@ -1,13 +1,13 @@
 <header>
   <div class = 'container'>
-    <a routerLink="/" class='logo'> {{getTitle()}} </a>
+    <a routerLink="/" class='logo'> {{title}} </a>
     <nav>
       <ul>
         <li> <a routerLink="/search">Search</a> </li>
         <li> <a routerLink="/">Accounts</a> </li>
         <li> <a routerLink="/">Dashboard</a> </li>
         <li> <a routerLink="/about">About</a> </li>
-        <li> <a routerLink="/">Logout</a> </li>
+        <li> <a (click) = "logout()" routerLink="/">Logout</a> </li>
       </ul>
     </nav>
   </div>
