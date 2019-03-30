@@ -5,8 +5,11 @@ const mongoose = require("mongoose");
 const User = require("../_models/user.js");
 const crypto = require("crypto");
 const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
 
 const router = express.Router()
+
+const _SECRET_KEY = "Secret key";
 
 //Middleware to use json related features in the server
 router.use(bodyParser.json());
@@ -27,7 +30,7 @@ router.get("/", (req, res) => {
 
 //Handle POST registration request
 router.post("/register", async (request, response) => {
-    let { fName, lName, email, password } = request.body;
+    let userData = request.body;
 
     //Create md5 hash
     const md5Hash = crypto.createHash("md5")
@@ -35,14 +38,9 @@ router.post("/register", async (request, response) => {
     //Hash password
     password = md5Hash.update(password).digest("hex");
 
-    const user = new User({
-        fName,
-        lName,
-        email,
-        password
-    });
+    const user = new User(userData);
 
-    console.log(fName);
+    console.log(userData);
 
     //Check if user exists
     let isExistingUser = await User.findOne({email});
@@ -58,10 +56,15 @@ router.post("/register", async (request, response) => {
         if (err) {
             response.status(401).send("Error in registration")
         } else {
-            response.status(200).json({
-                'success': true,
-                'message': "Successful reegistration",
-            });
+            let payload = {
+                subject : {
+                    'success': true,
+                    'message': "Successful registration",
+                }
+            };
+
+            let token = jwt.sign(payload, _SECRET_KEY);
+            response.status(200).send({token})
         }
     });
 
@@ -89,11 +92,16 @@ router.post("/login", (request, response) => {
             if (!user) {
                 response.status(401).send("Invalid credentials")
             } else {
-                response.status(200).json({
-                    "success": true,
-                    "message": "User verified",
-                    "user": user
-                })
+                let payload = {
+                    subject : {
+                        "success": true,
+                        "message": "User verified",
+                        "user": user
+                    }
+                };
+                
+                let token = jwt.sign(payload, _SECRET_KEY);
+                response.status(200).send({token})
             }
         }
     }
@@ -103,7 +111,36 @@ router.post("/login", (request, response) => {
 
 });
 
+//Middleware for decoding JWT tokens
+function verifyUser(request, response, next) {
+    const authHeader = request.headers.authorization;
+    if (!authHeader) {
+        return response.status(401).send("Unauthorzied request")
+    }
 
+    let token = authHeader.split(" ")[1];
+    if (token === "null") {
+        return response.status(401).send("No token")
+    }
+
+    let payload = jwt.verify(token, _SECRET_KEY)
+    if (!payload) {
+        return response.status(401).send("Invliad token") 
+    }
+
+    request.userID = payload.subject.user._id
+    next()
+}
+
+//Verify user based on JWT token
+router.post("/verify", verifyUser, (request, response) => {
+    const userID = request.body.email
+
+    User.findOne({userID}, (err, res) => {
+        if (!err) response.status(200).json(res.lName);
+        else response.status(401).json(err);
+    });
+});
 
 
 
