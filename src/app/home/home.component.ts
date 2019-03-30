@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AppManagerService } from '../_services/app-manager.service';
 import { Router } from '@angular/router';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -9,13 +9,35 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  private name: string
+
   constructor(
-    private appManager: AppManagerService,
-    private router: Router
+    private http: HttpClient,
+    private _router: Router
   ) { 
     
   }
 
-  ngOnInit(){}
+  ngOnInit(){
+
+    const fields = ["fName"]
+    this.http.post("http://localhost:8080/api/verify", {fields}).subscribe(
+      res => {
+
+        if (!(res instanceof HttpErrorResponse)) this.name = res["fName"].toString()
+        else {
+          localStorage.removeItem("token")
+          console.log("Invalid token")
+          this._router.navigate(["login"])
+        }
+        
+      },
+      err => {
+        console.log(err)
+        localStorage.removeItem("token")
+        this._router.navigate(["login"])
+      }
+    )
+  }
 
 }

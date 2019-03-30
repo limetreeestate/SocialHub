@@ -24,36 +24,25 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    //Pass email and password for authentication to authentication service
+    //Pass email and password to authentication service
     this._auth.authenticateUser(this.email, this.password)
       .subscribe(
-        data => {
-          window.alert(data.message);
-          if (data.success) {
-
-            console.log(this.appManager.isLoggedIn());
-
-            //Create user object in app manager
-            this.appManager.setUser(data["lName"], data["email"]);
-
-            //Add saved filter profiles to user object
-            this.appManager.addFilterProfile(data["filterProfiles"]);
-            console.log(this.appManager.isLoggedIn());
-            
-            //redirect to home
-            if (this.appManager.isLoggedIn()){
-              this._router.navigate([""]);
-            }
-
-          }
-        }
+        res => {
+          console.log(res);
+          
+          //Save response token to local storage
+          localStorage.setItem("token", res.token) 
+          this._router.navigate([""]);
+           
+        },
+        err => console.log(err)
       )
   }
 
   ngOnInit() {
 
-    if (this.appManager.isLoggedIn()) {
-      this._router.navigate(["home"]);
+    if (this._auth.isLoggedIn()) {
+      this._router.navigate([""]);
     }
     
   }

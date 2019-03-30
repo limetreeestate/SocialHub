@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppManagerService } from '../_services/app-manager.service';
 import { Router } from '@angular/router';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -14,12 +15,14 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private appManager: AppManagerService,
-    private router: Router
+    private http: HttpClient,
+    private _router: Router
   ) { 
     
   }
 
-  loginFacebook(){
+  
+  /* loginFacebook(){
     FB.login(
       (response)=> {
         console.log('submitLogin',response);
@@ -45,7 +48,7 @@ export class SearchComponent implements OnInit {
     //Get search keywords
     const keywords: string = target.querySelector("#keywords").value.toLowerCase();
     let results;
-
+    
     FB.api(
       "/me/feed?limit=100", //?fields=permalink_url
       (response) => {
@@ -61,21 +64,21 @@ export class SearchComponent implements OnInit {
           }
           
           console.log(this.results);
-
+          
         } else {
-
+          
         }
       }
-  );
-
-
+      );
+      
+      
+    }
+    
+    logout(){
+      console.log(FB.getAuthResponse())
   }
-
-  logout(){
-    console.log(FB.getAuthResponse())
-  }
-
-
+  
+  
   ngOnInit() {
     (window as any).fbAsyncInit = () => {
       FB.init({
@@ -84,23 +87,45 @@ export class SearchComponent implements OnInit {
         xfbml      : true,
         version    : 'v3.2'
       });
-        
+      
       FB.AppEvents.logPageView();   
-        
+      
     };
-  
+    
     (
       function(doc, script, fbSDK){
         var js, fjs = doc.getElementsByTagName(script)[0];
         if (doc.getElementById(fbSDK)) {
           return;
         }
-       
+        
         js = doc.createElement(script); js.id = fbSDK;
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
-
+        
       }(document, 'script', 'facebook-jssdk')
-    );
-  }
+      );
+    } */
+
+
+    ngOnInit(){
+
+      const fields = ["lName"]
+      this.http.post("http://localhost:8080/api/verify", {fields}).subscribe(
+        res => {
+    
+          if (res instanceof HttpErrorResponse) {
+            localStorage.removeItem("token")
+            window.alert("Invalid token")
+            this._router.navigate(["login"])
+          }
+          
+        },
+        err => {
+          console.log(err)
+          localStorage.removeItem("token")
+          this._router.navigate(["login"])
+        }
+      )
+    }
 }
