@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 /**Login response interface */
 interface LoginData {
@@ -33,11 +34,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  authenticateUser(email: string, password: string) {
-    //authenticate user by login credentials
+  
+  //authenticate user by login credentials
+  authenticateUser(email: string, password: string) :Observable<any>{
     
     //Send email and password to backend server through POST
-    return this.http.post<LoginData>(this._loginURL, {
+    return this.http.post<any>(this._loginURL, {
       email,
       password
     });
@@ -48,7 +50,7 @@ export class AuthService {
     lName: string, 
     email: string, 
     password: string
-    ) {
+    ) : Observable<any>{
     //register user by given credentials
 
     //Send email and password to backend server through POST
@@ -59,5 +61,13 @@ export class AuthService {
       password
     });
     
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem("token")
+  }
+
+  getToken(): string {
+    return localStorage.getItem("token")
   }
 }

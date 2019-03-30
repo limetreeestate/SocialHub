@@ -9,9 +9,12 @@ import { SearchComponent } from './search/search.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { HeaderLargeComponent } from './header.large/header.large.component';
+import { AuthService } from './_services/authentication.service';
+import { AuthGuard } from './_guards/auth.guard';
+import { JwtInterceptorService } from './_services/jwt-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,15 @@ import { HeaderLargeComponent } from './header.large/header.large.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthService, 
+    AuthGuard, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
