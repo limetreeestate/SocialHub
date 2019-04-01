@@ -1,24 +1,25 @@
 <app-nav></app-nav>
 <div class="topnav">
   <div class="search-container">
-    <form (submit) = 'search($event)'>
-      <input type="text" placeholder="Search.." id = 'keywords'>
-      <input type="submit" value = 'Search'>
-    </form>
+    <input [(ngModel)]='keyword' type="text" placeholder="Search..." id='keywords'>
+    <button (click)='search()' class='btn'>Search</button>
   </div>
 </div>
 
-<button (click) = 'loginFacebook()' class = 'btn'>Add Facebook account</button>
-<!-- <button (click) = 'logout()' class = 'btn'>Logout</button>
-
-<div   class="fb-login-button" data-size="large" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
-<div id="fb-root"></div> -->
+<button (click)='loginFacebook()' class='btn'>Add Facebook account</button>
 
 <ul>
-  <li *ngFor = 'let result of results'>
+  <li *ngFor='let result of results'>
     <!-- <div class="fb-post" data-href= "{{result.permalink_url}}" >  </div> -->
-    {{this.result}}
+    {{this.result[0]}}
+    <div class="fb-post" data-href="https://www.facebook.com/lonerboyforever/videos/2125286714221855/" data-width="500" data-show-text="true"><blockquote cite="https://developers.facebook.com/lonerboyforever/videos/2125286714221855/" class="fb-xfbml-parse-ignore"><p>From a couple of days ago 🎸</p>Posted by <a href="https://www.facebook.com/lonerboyforever">Suchitha Dehigaspitiya</a> on&nbsp;<a href="https://developers.facebook.com/lonerboyforever/videos/2125286714221855/">Wednesday, March 27, 2019</a></blockquote></div>
   </li>
 </ul>
 
 
+
+
+<div id="fb-root">
+  <div class="fb-post" data-href="https://www.facebook.com/lonerboyforever/videos/2125286714221855/" data-width="500" data-show-text="true"><blockquote cite="https://developers.facebook.com/lonerboyforever/videos/2125286714221855/" class="fb-xfbml-parse-ignore"><p>From a couple of days ago 🎸</p>Posted by <a href="https://www.facebook.com/lonerboyforever">Suchitha Dehigaspitiya</a> on&nbsp;<a href="https://developers.facebook.com/lonerboyforever/videos/2125286714221855/">Wednesday, March 27, 2019</a></blockquote></div>
+</div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=380519256063506&autoLogAppEvents=1"></script>
