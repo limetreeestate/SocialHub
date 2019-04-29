@@ -15,6 +15,8 @@ import { HeaderLargeComponent } from './header.large/header.large.component';
 import { AuthService } from './_services/authentication.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { JwtInterceptorService } from './_services/jwt-interceptor.service';
+import { AccountsComponent } from './accounts/accounts.component';
+import { Auth0Service } from './_services/auth0.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { JwtInterceptorService } from './_services/jwt-interceptor.service';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    HeaderLargeComponent
+    HeaderLargeComponent,
+    AccountsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { JwtInterceptorService } from './_services/jwt-interceptor.service';
   ],
   providers: [
     AuthService, 
+    Auth0Service, 
     AuthGuard, 
     {
       provide: HTTP_INTERCEPTORS,
