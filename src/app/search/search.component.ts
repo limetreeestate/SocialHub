@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AppManagerService } from '../_services/app-manager.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FacebookManagerService } from '../_services/facebook-manager.service';
+import { AuthService } from '../_services/authentication.service';
 
 
 @Component({
@@ -12,14 +13,14 @@ import { FacebookManagerService } from '../_services/facebook-manager.service';
 })
 export class SearchComponent implements OnInit {
 
-  private results = [];
+  private results :any = [];
   private keyword: string = "";
 
   constructor(
-    private appManager: AppManagerService,
     private http: HttpClient,
     private _router: Router,
-    private _fb: FacebookManagerService
+    private _fb: FacebookManagerService,
+    private _auth: AuthService
   ) { 
     
   }
@@ -31,8 +32,18 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-    this._fb.search(
+    /* this._fb.search(
       this.keyword,
+      res => this.results = res,
+      err => console.log(err)
+    ) */
+    const query = this.keyword
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', `Bearer ${this._auth.getToken("twitter")}`)
+    
+    let params = new HttpParams()
+    params = params.append("query", query)
+    this.http.post("https://api.twitter.com/1.1/tweets/search/30day/sclhb.json", {query}).subscribe(
       res => this.results = res,
       err => console.log(err)
     )

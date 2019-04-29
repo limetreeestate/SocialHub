@@ -67,7 +67,7 @@ export class AuthService {
     return !!localStorage.getItem("token")
   }
 
-  getToken(): string {
-    return localStorage.getItem("token")
+  getToken(tokenName: string): string {
+    return localStorage.getItem(tokenName)
   }
 }
