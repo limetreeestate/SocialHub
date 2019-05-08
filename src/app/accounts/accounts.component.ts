@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FacebookManagerService } from '../_services/facebook-manager.service';
 import { Auth0Service } from '../_services/auth0.service';
+import { YouTubeService } from '../_services/you-tube.service';
 
 @Component({
   selector: 'app-accounts',
@@ -15,19 +16,25 @@ export class AccountsComponent implements OnInit {
     private http: HttpClient,
     private _router: Router,
     private _fb: FacebookManagerService,
+    private _youtube: YouTubeService,
     private _auth0: Auth0Service
   ) { 
     _auth0.handleAuthentication()
   }
 
-  loginTwitter(){
+  loginFacebook() {
+    const scope = "email, user_posts, user_photos, user_friends, user_videos"
+    this._fb.login({scope})
+  }
+
+  loginTwitter() {
     this._auth0.login()
   }
 
-  searchTwitter(){
-    let token = this._auth0.accessToken;
-    
+  loginYouTube() {
+    this._youtube.login()
   }
+  
 
   
 

@@ -70,4 +70,8 @@ export class AuthService {
   getToken(tokenName: string): string {
     return localStorage.getItem(tokenName)
   }
+
+  hasToken(token: string): boolean {
+    return !!localStorage.getItem(token)
+  }
 }

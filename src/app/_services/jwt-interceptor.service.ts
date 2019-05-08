@@ -18,9 +18,10 @@ export class JwtInterceptorService implements HttpInterceptor{
 
   //intercept request and set local storage token in the header and pass to next handler of the request
   intercept(request: HttpRequest<any>, next: HttpHandler) {
-    
     const _auth = this.injector.get(AuthService)
     console.log("Tokeninzing request")
+    //let s = _auth.hasToken("token")
+    //console.log(s)
     if (request.url.includes("api.twitter")) {
       //If request to twitter API
       //tokenize the request with twitter bearer token
@@ -33,6 +34,8 @@ export class JwtInterceptorService implements HttpInterceptor{
       //pass tokenized requset to next request handler
       return next.handle(requestWithToken)
 
+    } else if (request.url.includes("googleapis")){
+      return next.handle(request)
     }
 
     //Request to backend server

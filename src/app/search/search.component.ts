@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FacebookManagerService } from '../_services/facebook-manager.service';
 import { AuthService } from '../_services/authentication.service';
+import { YouTubeService } from '../_services/you-tube.service';
 
 
 @Component({
@@ -20,15 +21,10 @@ export class SearchComponent implements OnInit {
     private http: HttpClient,
     private _router: Router,
     private _fb: FacebookManagerService,
+    private _youtube: YouTubeService,
     private _auth: AuthService
   ) { 
     
-  }
-
-  
-  loginFacebook() {
-    const scope = "email, user_posts, user_photos, user_friends, user_videos"
-    this._fb.login({scope})
   }
 
   search() {
@@ -37,7 +33,7 @@ export class SearchComponent implements OnInit {
       res => this.results = res,
       err => console.log(err)
     ) */
-    const query = this.keyword
+    /* const query = this.keyword
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${this._auth.getToken("twitter")}`)
     
@@ -46,7 +42,24 @@ export class SearchComponent implements OnInit {
     this.http.post("https://api.twitter.com/1.1/tweets/search/30day/sclhb.json", {query}).subscribe(
       res => this.results = res,
       err => console.log(err)
-    )
+    ) */
+
+    this._youtube.search(this.keyword,
+      res => console.log(res))
+    /* const params: string = [
+      `q=${this.keyword}`,
+      `key=AIzaSyBD2KPo91Xl3B6mli7ueSvjh_cCeRIfCvw`,
+      `part=snippet`,
+      `type=video`,
+      `maxResults=10`
+    ].join('&')
+    const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search'
+    const queryUrl = `${YOUTUBE_API_URL}?${params}`
+    this.http.get(queryUrl).subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    ) */
+
     console.log(this.results)
   }
 
