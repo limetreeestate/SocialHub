@@ -4,7 +4,6 @@ import { SearchComponent } from './search/search.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { AccountsComponent } from './accounts/accounts.component';
 
@@ -13,10 +12,6 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     canActivate: [AuthGuard]
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
   },
   {
     path: 'login',

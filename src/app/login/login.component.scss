@@ -1,12 +1,13 @@
-div {
-    justify-content: center;
-    
-    form {
-        justify-content: center;
-    }
 
-    a {
-        color: Black;
-    }
+.login-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.login-card {
+    width: 400px;
+    
+    .login-form-button {
+    }
+}

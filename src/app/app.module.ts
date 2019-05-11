@@ -19,7 +19,6 @@ import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RegisterComponent } from './register/register.component';
 import { HeaderLargeComponent } from './header.large/header.large.component';
 import { AuthService } from './_services/authentication.service';
 import { AuthGuard } from './_guards/auth.guard';
@@ -36,7 +35,6 @@ import { FiltersComponent } from './filters/filters.component';
     AboutComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent,
     HeaderLargeComponent,
     AccountsComponent,
     FiltersComponent

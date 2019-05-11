@@ -1,8 +1,45 @@
 <app-header-large></app-header-large>
 
-<div class='container'>
-    <input [(ngModel)]='email' type='email' id='email' placeholder='Email'>
-    <input [(ngModel)]='password' type='password' id='password' placeholder='Password'>
-    <button id='submit' (click)='login()'> Login </button>
-    <button id='submit' routerLink='/register'> Sign up </button>
+<div class='login-container'>
+    <mat-card class='login-card'>
+        <mat-card-content>
+            <mat-tab-group mat-stretch-tabs>
+                <mat-tab label="Login" class='login-form-label'>
+                    <div class='container'>
+                        <mat-form-field class='login-form-field'>
+                            <input matInput type="text" [(ngModel)]='email' type='email' id='email' placeholder='Email'>
+                        </mat-form-field>
+                        <mat-form-field class='login-form-field'>
+                            <input matInput type="text" [(ngModel)]='password' type='password' id='password'
+                                placeholder='Password'>
+                        </mat-form-field>
+                        <button class='login-form-button' mat-stroked-button color="primary" id='submit'
+                            (click)='login()'> Login </button>
+                    </div>
+                </mat-tab>
+
+
+                <mat-tab label="Register">
+                    <div class='container'>
+                        <mat-form-field class='login-form-field'>
+                            <input matInput type="text" type='text' id='fName' placeholder='First Name'>
+                        </mat-form-field>
+                        <mat-form-field class='login-form-field'>
+                            <input matInput type="text"  type='text' id='lName' placeholder='Last Name'>
+                        </mat-form-field>
+                        <mat-form-field class='login-form-field'>
+                            <input matInput type="text" [(ngModel)]='email' type='email' id='remail' placeholder='Email'>
+                        </mat-form-field>
+                        <mat-form-field class='login-form-field'>
+                            <input matInput [(ngModel)]='password' type='password' id='rpassword' placeholder='Password'>
+                        </mat-form-field>
+                        <mat-form-field class='login-form-field'>
+                            <input matInput [(ngModel)]='cpass' type='password' id='cpass' placeholder='Confirm Password'>
+                        </mat-form-field>
+                        <button class='login-form-button' mat-stroked-button color="primary" (click)='registerUser()'>Register</button>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </mat-card>
 </div>

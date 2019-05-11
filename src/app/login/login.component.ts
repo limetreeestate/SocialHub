@@ -18,8 +18,11 @@ export class LoginComponent implements OnInit {
     private _router: Router
   ) { }
 
-    private email: string;
-    private password: string;
+  private fName: string;
+  private lName: string;
+  private email: string;
+  private password: string;
+  private cpass: string;
 
 
   login() {
@@ -29,22 +32,42 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          
+
           //Save response token to local storage
-          localStorage.setItem("token", res.token) 
+          localStorage.setItem("token", res.token)
           this._router.navigate([""]);
-           
+
         },
         err => console.log(err)
       )
   }
 
+  registerUser() {
+
+    if (this.password === this.cpass) {
+
+      //Pass email and password for authentication to authentication service
+      this._auth.registerUser(this.fName, this.lName, this.email, this.password)
+        .subscribe(
+          data => {
+            window.alert(data.message);
+            if (data.success) {
+              this._router.navigate(["login"])
+            }
+          }
+        );
+
+    } else {
+      window.alert("Passwords do not match!");
+    }
+
+  }
   ngOnInit() {
 
     if (this._auth.isLoggedIn()) {
       this._router.navigate([""]);
     }
-    
+
   }
 
 }
