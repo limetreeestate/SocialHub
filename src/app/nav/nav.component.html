@@ -1,5 +1,5 @@
-<header>
-  <div class = 'container'>
+<!-- <header>
+  <div class='container'>
     <a routerLink="/" class='logo'> {{title}} </a>
     <nav>
       <ul>
@@ -7,8 +7,20 @@
         <li> <a routerLink="/accounts">Accounts</a> </li>
         <li> <a routerLink="/">Dashboard</a> </li>
         <li> <a routerLink="/about">About</a> </li>
-        <li> <a (click) = "logout()" routerLink="/">Logout</a> </li>
+        <li> <a (click)="logout()" routerLink="/">Logout</a> </li>
       </ul>
     </nav>
   </div>
-</header>
+</header> -->
+
+<mat-toolbar color='primary' class='nav'>
+  <mat-toolbar-row>
+      <a routerLink="/" class='logo'> {{title}} </a>
+      <span class='spacer'></span>
+      <a class='nav-link' mat-button routerLink="/search">Search</a>
+      <a class='nav-link' mat-button routerLink="/accounts">Accounts</a>
+      <a class='nav-link' mat-button routerLink="/">Dashboard</a>
+      <a class='nav-link' mat-button routerLink="/about">About</a>
+      <a class='nav-link' mat-button (click)="logout()" routerLink="/">Logout </a>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -1,7 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -17,6 +26,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { JwtInterceptorService } from './_services/jwt-interceptor.service';
 import { AccountsComponent } from './accounts/accounts.component';
 import { Auth0Service } from './_services/auth0.service';
+import { FiltersComponent } from './filters/filters.component';
 
 @NgModule({
   declarations: [
@@ -28,10 +38,21 @@ import { Auth0Service } from './_services/auth0.service';
     LoginComponent,
     RegisterComponent,
     HeaderLargeComponent,
-    AccountsComponent
+    AccountsComponent,
+    FiltersComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatCheckboxModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule

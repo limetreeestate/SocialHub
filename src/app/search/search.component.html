@@ -1,17 +1,30 @@
 <app-nav></app-nav>
-<div class="topnav">
-  <div class="search-container">
-    <input [(ngModel)]='keyword' type="text" placeholder="Search..." id='keywords'>
-    <button (click)='search()' class='btn'>Search</button>
-  </div>
-</div>
 
-<ul>
-  <li *ngFor='let result of results'>
-    <!-- <div class="fb-post" data-href= "{{result.permalink_url}}" >  </div> -->
-    {{this.result[0]}}
-  </li>
-</ul>
+<div class ='cont'>
+  <mat-sidenav-container class="search-container"  >
+    <mat-sidenav fullscreen class="filters" mode="side" opened >
+      <app-filters></app-filters>
+    </mat-sidenav>
+    <mat-sidenav-content class='search-content'>
+      <mat-form-field class='search-field'>
+        <input matInput type="text" [(ngModel)]='keyword' type="text" placeholder="Search" id='keywords'>
+        <button mat-button *ngIf="keyword != ''" matSuffix mat-icon-button aria-label="Clear" (click)="keyword=''">
+          <mat-icon svgIcon='cross'></mat-icon>
+        </button>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)='search()' class='btn'>Search</button>
+      <ul>
+        <li *ngFor='let result of results'>
+          <!-- <div class="fb-post" data-href= "{{result.permalink_url}}" >  </div> -->
+          {{this.result[0]}}
+        </li>
+      </ul>
+      
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</div>
 
 
 

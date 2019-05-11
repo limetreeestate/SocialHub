@@ -1,39 +1,26 @@
-/* Add a black background color to the top navigation bar */
-.topnav {
-    overflow: hidden;
-    background-color: #e9e9e9;
-  }
-  
-  /* Style the links inside the navigation bar */
-  .topnav a {
-    float: left;
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  
-  /* Change the color of links on hover */
-  .topnav a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  
-  /* Style the "active" element to highlight the current page */
-  .topnav a.active {
-    background-color: #2196F3;
-    color: white;
-  }
-  
-  /* Style the search box inside the navigation bar */
-  .topnav input[type=text] {
-    float: left;
-    padding: 6px;
-    border: none;
-    margin-top: 8px;
-    margin-right: 60px;
-    font-size: 17px;
-  }
-  
+.example-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+
+.filters {
+  padding: 20px;
+  padding-right: 1px;
+}
+
+.search-content {
+  padding: 10px;
+}
+.search-field {
+  width: 400px;
+  padding-right: 10px;
+  font-size: 16px;
+}
+
+.cont {
+  height: 100%;
+  display: flex;
+  flex-direction: column
+}

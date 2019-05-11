@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
-
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 body, html {
     height: 100%;
     margin: 0 auto;
@@ -7,8 +7,8 @@ body, html {
 
 body {
 
-    font-family: 'Montserrat';
-    font-size: 18px;
+    font-family: 'Arial';
+    font-size: 16px;
 }
 
 a {
@@ -16,9 +16,8 @@ a {
 }
 
 .container {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
-    padding: 1.3em;
     display: grid;
 
     a {
@@ -27,6 +26,8 @@ a {
 }
 
 .logo {
+    font-family: 'Montserrat';
+    font-size: 20px;
     font-weight: bold;
     color: white
 }
@@ -44,7 +45,7 @@ input {
     text-decoration: none;
 }
 
-input[type=submit], button {
+input[type=submit] {
     width: 100%;
     padding: 12px;
     border: none;
@@ -57,3 +58,7 @@ input[type=submit], button {
     text-decoration: none;
 }
 
+.btn {
+    align-self: center;
+    padding: 10px
+}
