@@ -1,0 +1,134 @@
+<mat-toolbar color="basic">
+    <mat-toolbar-row>
+        <span>Filter results</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-accordion multi flex>
+    <mat-expansion-panel (opened)="addSocialMedia('facebook')" (closed)="removeSocialMedia('facebook')">
+        <mat-expansion-panel-header>
+            <mat-panel-title style='color:rgb(63, 87, 168);'>
+                Facebook
+            </mat-panel-title>
+            <mat-panel-description>
+                {{filterProfile.facebook.show ? 'Showing' : 'Not showing'}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+    <!-- TWITTER PANEL------->
+    <mat-expansion-panel (opened)="addSocialMedia('twitter')" (closed)="removeSocialMedia('twitter')">
+        <mat-expansion-panel-header>
+            <mat-panel-title style='color:rgb(0, 119, 255);'>
+                Twitter
+            </mat-panel-title>
+            <mat-panel-description>
+                {{filterProfile.twitter.show ? 'Showing' : 'Not showing'}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <section>
+            <mat-checkbox color='accent' [(ngModel)]="filterProfile.twitter.safe">Safe</mat-checkbox>
+        </section>
+        <section>
+            <mat-checkbox color='accent' [(ngModel)]="filterProfile.twitter.verified">Verified</mat-checkbox>
+        </section>
+        <section>
+            <mat-checkbox color='accent' [(ngModel)]="filterProfile.twitter.images">Images</mat-checkbox>
+        </section>
+        <section>
+            <mat-checkbox color='accent' [(ngModel)]="filterProfile.twitter.native_video">Videos</mat-checkbox>
+        </section>
+        <section>
+            <section>Overall Reaction: </section>
+            <mat-radio-group  [(ngModel)]="filterProfile.twitter.reaction">
+                <mat-radio-button color='accent' class="radio-button" value=":)">Positve</mat-radio-button>
+                <mat-radio-button color='accent' class="radio-button" value=":(">Negative</mat-radio-button>
+            </mat-radio-group>
+        </section>
+        <br>
+        <section>
+            <mat-form-field>
+                <mat-select [(value)]="filterProfile.twitter.result_type" placeholder="Result Type">
+                    <mat-option value="popular">Popular </mat-option>
+                    <mat-option value="recent">Recent </mat-option>
+                    <mat-option value="mixed">Mixed </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </section>
+        <section>
+            <mat-form-field class='date-picker'>
+                <input [(ngModel)]="filterProfile.twitter.until" matInput [matDatepicker]="until"
+                    placeholder="Show until">
+                <mat-datepicker-toggle matSuffix [for]="until"></mat-datepicker-toggle>
+                <mat-datepicker #until></mat-datepicker>
+            </mat-form-field>
+        </section>
+    </mat-expansion-panel>
+    <!-- YOUTUBE PANEL------->
+    <mat-expansion-panel class='filter-panel' (opened)="addSocialMedia('youtube')"
+        (closed)="removeSocialMedia('youtube')">
+        <mat-expansion-panel-header>
+            <mat-panel-title style='color:red;'>
+                YouTube
+            </mat-panel-title>
+            <mat-panel-description>
+                {{filterProfile.youtube.show ? 'Showing' : 'Not showing'}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <section>
+            <mat-form-field>
+                <mat-select [(value)]="filterProfile.youtube.safeSearch" placeholder="Safe Search">
+                    <mat-option value="none">None </mat-option>
+                    <mat-option value="moderate">Moderate </mat-option>
+                    <mat-option value="strict">Strict </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </section>
+        <section>
+            <mat-form-field>
+                <mat-select [(value)]="filterProfile.youtube.videoDuration" placeholder="Duration">
+                    <mat-option value="any">Any </mat-option>
+                    <mat-option value="short">Short </mat-option>
+                    <mat-option value="medium">Medium </mat-option>
+                    <mat-option value="long">Long </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </section>
+        <section>
+            <mat-form-field>
+                <mat-select [(value)]="filterProfile.youtube.videoDimension" placeholder="Dimension">
+                    <mat-option value="any">Any </mat-option>
+                    <mat-option value="2d">2D </mat-option>
+                    <mat-option value="3d">3D </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </section>
+        <section>
+            <mat-form-field>
+                <mat-select [(value)]="filterProfile.youtube.order" placeholder="Order">
+                    <mat-option value="date">Date </mat-option>
+                    <mat-option value="rating">Rating </mat-option>
+                    <mat-option value="relevance">Relavence </mat-option>
+                    <mat-option value="title">Title </mat-option>
+                    <mat-option value="videoCount">Video count </mat-option>
+                    <mat-option value="viewCount">View Count </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </section>
+        <section>
+            <mat-form-field class='date-picker'>
+                <input [(ngModel)]="filterProfile.youtube.publishedAfter" matInput [matDatepicker]="ytfrom"
+                    placeholder="From">
+                <mat-datepicker-toggle matSuffix [for]="ytfrom"></mat-datepicker-toggle>
+                <mat-datepicker #ytfrom></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class='date-picker'>
+                <input [(ngModel)]="filterProfile.youtube.publishedBefore" matInput [matDatepicker]="ytto"
+                    placeholder="To">
+                <mat-datepicker-toggle matSuffix [for]="ytto"></mat-datepicker-toggle>
+                <mat-datepicker #ytto></mat-datepicker>
+            </mat-form-field>
+        </section>
+
+    </mat-expansion-panel>
+</mat-accordion>
+
+<button mat-button (click)='setInParent()'> Show</button>

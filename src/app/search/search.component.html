@@ -2,8 +2,8 @@
 
 <div class ='cont'>
   <mat-sidenav-container class="search-container"  >
-    <mat-sidenav fullscreen class="filters" mode="side" opened >
-      <app-filters></app-filters>
+    <mat-sidenav [fixedTopGap]  class="filters" mode="side" opened >
+      <app-filters #filter></app-filters>
     </mat-sidenav>
     <mat-sidenav-content class='search-content'>
       <mat-form-field class='search-field'>
@@ -12,7 +12,7 @@
           <mat-icon svgIcon='cross'></mat-icon>
         </button>
       </mat-form-field>
-      <button mat-raised-button color="primary" (click)='search()' class='btn'>Search</button>
+      <button mat-raised-button color="primary" (click)='search(filter.getFilterProfile())' class='btn'>Search</button>
       <ul>
         <li *ngFor='let result of results'>
           <!-- <div class="fb-post" data-href= "{{result.permalink_url}}" >  </div> -->

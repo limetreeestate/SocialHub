@@ -1,47 +1,41 @@
+import { FormControl } from '@angular/forms';
+
+interface Params {
+    [key: string]: any
+}
+
 export class FilterProfile {
 
     //filter profile name
-    private name: String;
+    public facebook: Params
+    public twitter: Params
+    public youtube: Params
 
-    public static IMAGE: number = 0;
-    public static TEXT: number = 1;
-    public static VIDEO: number = 2;
-
-    private postType: number;
-    private isPersonalAccount: boolean;
-    private isVerfied: boolean;
-
-    constructor(name: String) {
-        this.name = name;
-    }
-
-    public setTypeOfPost(type: number) {
-        let status: boolean = type != FilterProfile.IMAGE || type != FilterProfile.TEXT || type != FilterProfile.VIDEO;
-        if (status) {
-            window.alert("Not a valid type");
-        } else {
-            this.postType = type;
+    constructor() {
+        let fromDate = new FormControl(new Date('1/1/2000')).value;
+        let toDate = new FormControl(new Date()).value;
+        this.twitter = {
+            'show': false,
+            'safe': true,
+            'verified': false,
+            'native_video': true,
+            'images': true,
+            'reaction': ':)',
+            'until': toDate,
+            'result_type': 'popular'
+        }
+        this.facebook = {
+            'show': false
+        }
+        //initialize and assign default values
+        this.youtube = {
+            'show': false,
+            'safeSearch': 'none',
+            'publishedAfter': fromDate,
+            'publishedBefore': toDate,
+            'videoDuration': "any",
+            'videoDimension': "any",
+            'order': 'relevance'
         }
     }
-
-    public getTypeOfPost(): number {
-        return this.postType;
-    }
-
-    public setIfPersonalAccount(type: boolean) {
-        this.isPersonalAccount = type;
-    }
-
-    public getIfPersonalAccount() {
-        return this.isPersonalAccount;
-    }
-
-    public setIfVerified(type: boolean) {
-        this.isVerfied = type;
-    }
-
-    public getIfVerified() {
-        return this.isVerfied;
-    }
-
 }

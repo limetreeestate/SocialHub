@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AppManagerService } from '../_services/app-manager.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FacebookManagerService } from '../_services/facebook-manager.service';
 import { AuthService } from '../_services/authentication.service';
 import { YouTubeService } from '../_services/you-tube.service';
+import { FilterProfile } from '../_models/FilterProfile';
 
 
 @Component({
@@ -27,12 +27,12 @@ export class SearchComponent implements OnInit {
     
   }
 
-  search() {
-    /* this._fb.search(
+  search(filter: FilterProfile) {
+    this._fb.search(
       this.keyword,
       res => this.results = res,
       err => console.log(err)
-    ) */
+    )
     /* const query = this.keyword
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${this._auth.getToken("twitter")}`)
@@ -43,8 +43,7 @@ export class SearchComponent implements OnInit {
       res => this.results = res,
       err => console.log(err)
     ) */
-
-    this._youtube.search(this.keyword,
+    this._youtube.search(this.keyword, filter.youtube,
       res => console.log(res))
     /* const params: string = [
       `q=${this.keyword}`,
