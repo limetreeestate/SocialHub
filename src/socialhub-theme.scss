@@ -2,7 +2,7 @@
 
 $my-blue: (
   50:rgb(47, 66, 128),
-  100: #7faedd,
+  100: #3F51B5,
   200: #7f7fdd,
   300: #7faedd,
   400: #7faedd,
@@ -44,7 +44,7 @@ $my-blue: (
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker rgb(47, 66, 128)
 // hue. Available color palettes: https://material.io/design/color/
-$socialhub-app-primary: mat-palette($my-blue, 50);
+$socialhub-app-primary: mat-palette($my-blue, 50, 100);
 $socialhub-app-accent:  mat-palette($mat-pink, 500, 400, 300);
 
 // The warn palette is optional (defaults to red).

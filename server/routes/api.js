@@ -67,8 +67,8 @@ router.post("/register", async (request, response) => {
 
 //Handle POST login request
 router.post("/login", (request, response) => {
-    console.log(request.body)
     let { email, password } = request.body;
+    console.log(`User ${email} attempted login`)
 
     //Create md5 hash
     const md5Hash = crypto.createHash("md5")
@@ -79,11 +79,12 @@ router.post("/login", (request, response) => {
 
     //find user from db matching the email and password
     User.findOne({email, password}, (err, user) => {
-        console.log(err, user)
         if (err) {
+            console.log(err)
             response.status(401).send(err)
         } else {
             if (!user) {
+                console.log(`Invalid login attempt by user ${email}`)
                 response.status(401).send("Invalid credentials")
             } else {
                 let payload = {
@@ -95,6 +96,7 @@ router.post("/login", (request, response) => {
                 };
                 
                 let token = jwt.sign(payload, _SECRET_KEY);
+                console.log(`Successful user ${email} login`)
                 response.status(200).send({token})
             }
         }
