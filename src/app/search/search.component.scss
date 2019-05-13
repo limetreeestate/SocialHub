@@ -36,3 +36,30 @@
   overflow: hidden;
   width: 100%;
 }
+
+.yt-list {
+  padding: 10px 0;
+  border-bottom: 1px #ccc dotted;
+  list-style: none;
+  overflow: auto;
+}
+
+.list-left {
+  img {
+    width: 100%;
+    padding: 3px;
+    border: solid #ccc 1px;
+  }
+
+  float: left;
+  width: 20%
+}
+
+.list-right {
+  float: right;
+  width: 78%
+}
+
+a:link, a:visited {
+  color: black;
+}

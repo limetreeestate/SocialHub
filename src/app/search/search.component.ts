@@ -6,16 +6,22 @@ import { AuthService } from '../_services/authentication.service';
 import { YouTubeService } from '../_services/you-tube.service';
 import { FilterProfile } from '../_models/FilterProfile';
 
+interface Results {
+  [key: string]: [any]
+}
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
+
 export class SearchComponent implements OnInit {
 
-  private results :any = [];
+  private results :Results = {};
   private keyword: string = "";
+  hasYouTube = false
+  objectKeys = Object.keys
 
   constructor(
     private http: HttpClient,
@@ -28,11 +34,24 @@ export class SearchComponent implements OnInit {
   }
 
   search(filter: FilterProfile) {
-    this._fb.search(
-      this.keyword,
-      res => this.results = res,
-      err => console.log(err)
-    )
+    if (filter.facebook.show) {
+      this._fb.search(
+        this.keyword,
+        res => {
+          this.results.Facebook = res
+          console.log(this.results)
+        },
+        err => console.log(err)
+      )
+    }
+
+    if (filter.twitter.show) {
+      
+    }
+
+    if (filter.youtube.show) {
+
+    }
     /* const query = this.keyword
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${this._auth.getToken("twitter")}`)
@@ -44,7 +63,11 @@ export class SearchComponent implements OnInit {
       err => console.log(err)
     ) */
     this._youtube.search(this.keyword, filter.youtube,
-      res => console.log(res))
+      res => {
+        this.results.YouTube = res
+        console.log(this.results.YouTube)
+        this.hasYouTube = true
+      })
     /* const params: string = [
       `q=${this.keyword}`,
       `key=AIzaSyBD2KPo91Xl3B6mli7ueSvjh_cCeRIfCvw`,
@@ -57,9 +80,14 @@ export class SearchComponent implements OnInit {
     this.http.get(queryUrl).subscribe(
       res => console.log(res),
       err => console.log(err)
-    ) */
+    )
+     */
 
     console.log(this.results)
+  }
+
+  hasResults(media: string) {
+    return !!this.results[media]
   }
 
 

@@ -1,8 +1,8 @@
 <app-nav></app-nav>
 
-<div class ='cont'>
-  <mat-sidenav-container class="search-container"  >
-    <mat-sidenav [fixedTopGap]  class="filters" mode="side" opened >
+<div class='cont'>
+  <mat-sidenav-container class="search-container">
+    <mat-sidenav [fixedTopGap] class="filters" mode="side" opened>
       <app-filters #filter></app-filters>
     </mat-sidenav>
     <mat-sidenav-content class='search-content'>
@@ -13,20 +13,38 @@
         </button>
       </mat-form-field>
       <button mat-raised-button color="primary" (click)='search(filter.getFilterProfile())' class='btn'>Search</button>
-      <ul>
-        <li *ngFor='let result of results'>
-          <!-- <div class="fb-post" data-href= "{{result.permalink_url}}" >  </div> -->
-          {{this.result[0]}}
-        </li>
-      </ul>
-      
+
+      <mat-tab-group>
+        <mat-tab label={{key}} *ngFor='let key of objectKeys(results)'>
+          <!-- Facebook content -->
+          <ul *ngIf='key=="Facebook"'>
+            <li *ngFor='let result of results.Facebook'> {{result[0]}} </li>
+          </ul>
+          <!-- YouTube content -->
+          <div *ngIf='key=="YouTube"'>
+              <ul  *ngFor='let result of results.YouTube'>
+                  <li class='yt-list'>
+                    <div class='list-left'>
+                      <img src={{result.thumbnail}}>
+                    </div>
+                    <div class='list-right'>
+                      <h3><a href={{result.url}}>{{result.title}}</a></h3>
+                      <small>By <span>{{result.channel}}</span> on {{result.date | date : 'mediumDate'}}</small>
+                      <p>
+                        {{result.description}}
+                      </p>
+                    </div>
+                  </li>
+                  <div class='clearfix'></div>
+                </ul>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
     </mat-sidenav-content>
 
   </mat-sidenav-container>
 
 </div>
-
-
 
 <!-- 
 <div id="fb-root">
