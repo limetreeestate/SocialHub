@@ -41,7 +41,7 @@ export class AccountsComponent implements OnInit {
   ngOnInit(){
 
     const fields = ["filterProfiles"]
-    this.http.post("http://localhost:8080/api/verify", {fields}).subscribe(
+    this.http.post("https://localhost:8080/api/verify", {fields}).subscribe(
       res => {
   
         if (res instanceof HttpErrorResponse) {

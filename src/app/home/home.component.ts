@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(){
 
     const fields = ["fName"]
-    this.http.post("http://localhost:8080/api/verify", {fields}).subscribe(
+    this.http.post("https://localhost:8080/api/verify", {fields}).subscribe(
       res => {
 
         if (!(res instanceof HttpErrorResponse)) this.name = res["fName"].toString()

@@ -29,8 +29,8 @@ interface RegisterData {
 })
 export class AuthService {
 
-  private _loginURL: string = "http://localhost:8080/api/login"
-  private _registerURL: string = "http://localhost:8080/api/register"
+  private _loginURL: string = "https://localhost:8080/api/login"
+  private _registerURL: string = "https://localhost:8080/api/register"
 
   constructor(private http: HttpClient) { }
 
