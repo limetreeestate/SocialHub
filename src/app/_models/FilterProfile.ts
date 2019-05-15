@@ -35,6 +35,7 @@ export class FilterProfile {
             'publishedBefore': toDate,
             'videoDuration': "any",
             'videoDimension': "any",
+            'channel': "",
             'order': 'relevance'
         }
     }

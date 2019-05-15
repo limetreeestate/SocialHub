@@ -21,7 +21,7 @@ export class YouTubeService {
     console.log("init")
     //Credentials
     const config = {
-      'apiKey': 'AIzaSyDnn0iIqQtWnId8zjaZN_gTRTtRLgTtXlc',
+      'apiKey': 'AIzaSyDuLRdU5WqZ9u6Hr_dR9blraG1MKn_BoI0',
       'clientId': '215570320494-glh46fvgrm5fuqd5897jejg1vff407mf.apps.googleusercontent.com',
       'scope': 'https://www.googleapis.com/auth/youtube.readonly',
       'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
@@ -52,61 +52,59 @@ export class YouTubeService {
 
 
   search(keywords: string, filter, successCallback) {
-    console.log(filter)
     //default parameters
     let params = {
       'part': 'snippet',
       'q': keywords,
       'type': 'video',
-      "maxResults": 20
+      "maxResults": 50
     }
-    //Edit filter data params
-    delete filter.show
-    let tempBefore = Object.assign({}, filter.publishedBefore)
-    let tempAfter = Object.assign({}, filter.publishedAfter)
-
-    filter.publishedBefore = this.ISODateString(filter.publishedBefore)
-    filter.publishedAfter = this.ISODateString(filter.publishedAfter)
+    //Edit and remove unnecessary filter data params
+    let filterNew = Object.assign({}, filter)
+    delete filterNew.channel
+    delete filterNew.show
+    filterNew.publishedBefore = this.ISODateString(filterNew.publishedBefore) //Transform dates into formats required by the YT Data API
+    filterNew.publishedAfter = this.ISODateString(filterNew.publishedAfter)
+    //Channel title parameter to lowercase and whitespaces stripped
+    const channelTitle: string = filter.channel.toLowerCase().replace(/ /g, '')
     //Combine with filter parameters
-    params = { ...params, ...filter }
-    console.log(params)
+    params = { ...params, ...filterNew }
     //Initialize API request
     let request = gapi.client.youtube.search.list(params);
-    console.log("ASDDD")
     // Execute the API request.
     request.execute(
       (res) => {
         let items = res.items
         let results = []
-        //rettrive the required fields
+        //retrieve the required fields
         items.forEach(element => {
           const snippet = element.snippet
           
-          const title = snippet.title 
-          const channel = snippet.channelTitle 
-          const date = snippet.publishedAt 
-          const thumbnail = snippet.thumbnails.medium.url
-          const description = snippet.description
-          const url = `https://www.youtube.com/watch?v=${element.id.videoId}`
-          
-          results.push({
-            title,
-            channel,
-            date,
-            thumbnail,
-            description,
-            url
-          })
+          const title: string = snippet.title 
+          const channel: string = snippet.channelTitle 
+          const date: string = snippet.publishedAt 
+          const thumbnail: string = snippet.thumbnails.medium.url
+          const description: string = snippet.description
+          const url: string = `https://www.youtube.com/watch?v=${element.id.videoId}`
+          //Channel title result to lowercase and whitespace stripped
+          const temp: string = channel.toLowerCase().replace(/ /g, '')
+          //Check if channel titles match
+          if (channelTitle == "" || temp.includes(channelTitle)) {
+            //Push desired fields into array
+            results.push({
+              title,
+              channel,
+              date,
+              thumbnail,
+              description,
+              url
+            })
+          }
         });
         //Callback with results array
         successCallback(results)
       }
       );
-
-      console.log(tempAfter, tempBefore)
-      //Reset 
-      filter.publishedBefore = new FormControl(new Date(filter.publishedBefore)).value
-      filter.publishedAfter = new FormControl(new Date(filter.publishedAfter)).value 
     }
     
   login() {

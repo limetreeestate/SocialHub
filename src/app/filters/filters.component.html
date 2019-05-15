@@ -74,6 +74,11 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
         <section>
+            <mat-form-field class='search-field'>
+                <input matInput type="text" [(ngModel)]='filterProfile.youtube.channel' type="text" placeholder="Channel">
+              </mat-form-field>
+        </section>
+        <section>
             <mat-form-field>
                 <mat-select [(value)]="filterProfile.youtube.safeSearch" placeholder="Safe Search">
                     <mat-option value="none">None </mat-option>
