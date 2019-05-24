@@ -16,13 +16,14 @@ export class FilterProfile {
         let toDate = new FormControl(new Date()).value;
         this.twitter = {
             'show': false,
-            'safe': true,
-            'verified': false,
-            'native_video': true,
-            'images': true,
-            'reaction': ':)',
-            'until': toDate,
-            'result_type': 'popular'
+            'is:verified': false,
+            'has:videos': true,
+            'has:images': true,
+            'toDate': toDate,
+            'fromDate': "",
+            'from:': "",
+            'to:': "",
+            'lang:': 'en'
         }
         this.facebook = {
             'show': false

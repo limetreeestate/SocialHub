@@ -25,40 +25,48 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
         <section>
-            <mat-checkbox color='accent' [(ngModel)]="filterProfile.twitter.safe">Safe</mat-checkbox>
+            <mat-checkbox color='accent' [(ngModel)]="filterProfile.twitter['is:verified']">Verified</mat-checkbox>
         </section>
         <section>
-            <mat-checkbox color='accent' [(ngModel)]="filterProfile.twitter.verified">Verified</mat-checkbox>
+            <mat-checkbox color='accent' [(ngModel)]="filterProfile.twitter['has:images']">Images</mat-checkbox>
         </section>
         <section>
-            <mat-checkbox color='accent' [(ngModel)]="filterProfile.twitter.images">Images</mat-checkbox>
+            <mat-checkbox color='accent' [(ngModel)]="filterProfile.twitter['has:videos']">Videos</mat-checkbox>
         </section>
         <section>
-            <mat-checkbox color='accent' [(ngModel)]="filterProfile.twitter.native_video">Videos</mat-checkbox>
+            <mat-form-field class='search-field'>
+                <span matPrefix>@ &nbsp;</span>
+                <input matInput type="text" [(ngModel)]='filterProfile.twitter["from:"]' type="text"
+                    placeholder="From user">
+            </mat-form-field>
         </section>
         <section>
-            <section>Overall Reaction: </section>
-            <mat-radio-group  [(ngModel)]="filterProfile.twitter.reaction">
-                <mat-radio-button color='accent' class="radio-button" value=":)">Positve</mat-radio-button>
-                <mat-radio-button color='accent' class="radio-button" value=":(">Negative</mat-radio-button>
-            </mat-radio-group>
+            <mat-form-field class='search-field'>
+                <span matPrefix>@ &nbsp;</span>
+                <input matInput type="text" [(ngModel)]='filterProfile.twitter["to:"]' type="text" placeholder="To user">
+            </mat-form-field>
         </section>
-        <br>
         <section>
             <mat-form-field>
-                <mat-select [(value)]="filterProfile.twitter.result_type" placeholder="Result Type">
-                    <mat-option value="popular">Popular </mat-option>
-                    <mat-option value="recent">Recent </mat-option>
-                    <mat-option value="mixed">Mixed </mat-option>
+                <mat-select matInput [(value)]="filterProfile.twitter['lang:']" placeholder="Language">
+                    <mat-option *ngFor='let langKey of langKeys' value={{languages[langKey]}}>
+                        {{langKey}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </section>
         <section>
             <mat-form-field class='date-picker'>
-                <input [(ngModel)]="filterProfile.twitter.until" matInput [matDatepicker]="until"
-                    placeholder="Show until">
-                <mat-datepicker-toggle matSuffix [for]="until"></mat-datepicker-toggle>
-                <mat-datepicker #until></mat-datepicker>
+                <input [(ngModel)]="filterProfile.twitter.fromDate" matInput [matDatepicker]="twtodate"
+                    placeholder="From">
+                <mat-datepicker-toggle matSuffix [for]="twtodate"></mat-datepicker-toggle>
+                <mat-datepicker #twtodate></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class='date-picker'>
+                <input [(ngModel)]="filterProfile.twitter.toDate" matInput [matDatepicker]="twfromDate"
+                    placeholder="To">
+                <mat-datepicker-toggle matSuffix [for]="twfromDate"></mat-datepicker-toggle>
+                <mat-datepicker #twfromDate></mat-datepicker>
             </mat-form-field>
         </section>
     </mat-expansion-panel>
@@ -75,8 +83,9 @@
         </mat-expansion-panel-header>
         <section>
             <mat-form-field class='search-field'>
-                <input matInput type="text" [(ngModel)]='filterProfile.youtube.channel' type="text" placeholder="Channel">
-              </mat-form-field>
+                <input matInput type="text" [(ngModel)]='filterProfile.youtube.channel' type="text"
+                    placeholder="Channel">
+            </mat-form-field>
         </section>
         <section>
             <mat-form-field>

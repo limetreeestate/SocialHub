@@ -6,10 +6,9 @@ const User = require("../_models/user.js");
 const crypto = require("crypto");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
-
 const router = express.Router()
-
 const _SECRET_KEY = "Secret key";
+const support = require("./support");
 
 //Middleware to use json related features in the server
 router.use(bodyParser.json());
@@ -25,8 +24,6 @@ mongoose.connect("mongodb://client:client123@localhost:27017/socialhub")
 router.get("/", (req, res) => {
     res.send("From API route");
 });
-
-
 
 //Handle POST registration request
 router.post("/register", async (request, response) => {
@@ -107,29 +104,8 @@ router.post("/login", (request, response) => {
 
 });
 
-//Middleware for decoding JWT tokens
-function verifyUser(request, response, next) {
-    const authHeader = request.headers.authorization;
-    if (!authHeader) {
-        return response.status(401).send("Unauthorzied request")
-    }
-
-    let token = authHeader.split(" ")[1];
-    if (token === "null") {
-        return response.status(401).send("No token")
-    }
-
-    let payload = jwt.verify(token, _SECRET_KEY)
-    if (!payload) {
-        return response.status(401).send("Invliad token") 
-    }
-
-    request.userID = payload.subject.user._id
-    next()
-}
-
 //Verify user based on JWT token
-router.post("/verify", verifyUser, (request, response) => {
+router.post("/verify", support.verifyUser, (request, response) => {
     const {fields, userID} = request.body
     const project = {}
     
@@ -141,7 +117,5 @@ router.post("/verify", verifyUser, (request, response) => {
     });
 });
 
-
-
-
+//https://localhost:8080/api/authorize/callback
 module.exports = router;
