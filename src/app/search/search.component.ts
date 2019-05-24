@@ -5,6 +5,7 @@ import { FacebookManagerService } from '../_services/facebook-manager.service';
 import { AuthService } from '../_services/authentication.service';
 import { YouTubeService } from '../_services/you-tube.service';
 import { FilterProfile } from '../_models/FilterProfile';
+import { TwitterService } from '../_services/twitter.service';
 
 interface Results {
   [key: string]: [any]
@@ -18,8 +19,8 @@ interface Results {
 
 export class SearchComponent implements OnInit {
 
-  private results: Results = {};
-  private keyword: string = "";
+  results: Results = {};
+  keyword: string = "";
   hasYouTube = false
   objectKeys = Object.keys
 
@@ -28,6 +29,7 @@ export class SearchComponent implements OnInit {
     private _router: Router,
     private _fb: FacebookManagerService,
     private _youtube: YouTubeService,
+    private _twitter: TwitterService,
     private _auth: AuthService
   ) {
 
@@ -46,27 +48,37 @@ export class SearchComponent implements OnInit {
     }
 
     if (filter.twitter.show) {
-
+      this.results.Twitter = ['']
+      this._twitter.search(
+        this.keyword,
+        filter.twitter,
+        (res) => {
+          this.results.Twitter = res
+          console.log(res)
+          let tweetContainer = document.getElementById('tweet-container')
+          tweetContainer.innerHTML = ""
+          console.log(tweetContainer)
+          tweetContainer.style.display = 'block';
+          res.forEach(element => {
+            (window as any).twttr.widgets.createTweet(element.id_str, tweetContainer,
+              {
+              })
+          });
+          console.log(res)
+        }
+      )
     }
 
     if (filter.youtube.show) {
-      this._youtube.search(this.keyword, filter.youtube,
+      this._youtube.search(
+        this.keyword,
+        filter.youtube,
         res => {
           this.results.YouTube = res
           console.log(this.results.YouTube)
           this.hasYouTube = true
         })
     }
-    /* const query = this.keyword
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', `Bearer ${this._auth.getToken("twitter")}`)
-    
-    let params = new HttpParams()
-    params = params.append("query", query)
-    this.http.post("https://api.twitter.com/1.1/search/tweets.json", {query}).subscribe(
-      res => this.results = res,
-      err => console.log(err)
-    ) */
 
   }
 

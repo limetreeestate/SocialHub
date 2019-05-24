@@ -14,7 +14,7 @@
       </mat-form-field>
       <button mat-raised-button color="primary" (click)='search(filter.getFilterProfile())' class='btn'>Search</button>
 
-      <mat-tab-group>
+      <mat-tab-group id='tab-container'>
         <mat-tab label={{key}} *ngFor='let key of objectKeys(results)'>
           <!-- Facebook content -->
           <ul *ngIf='key=="Facebook"'>
@@ -38,6 +38,7 @@
                   <div class='clearfix'></div>
                 </ul>
           </div>
+          <div *ngIf='key=="Twitter"' id='tweet-container'></div>
         </mat-tab>
       </mat-tab-group>
     </mat-sidenav-content>
