@@ -13,7 +13,7 @@ const app = express();
 //SSL Certificate and key
 const key = fs.readFileSync("./ssl/server.key");
 const cert = fs.readFileSync("./ssl/server.crt");
-const twit = require("./routes/twitter-api")
+const twit = require("./routes/twitter-api");
 const options = {key, cert};
 
 //For handling front-end and back-end port mismatch

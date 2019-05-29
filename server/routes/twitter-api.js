@@ -1,9 +1,7 @@
 /*jshint esversion: 6 */
 const express = require("express");
-const Twit = require("twit");
 const support = require("./support");
 const bodyParser = require("body-parser");
-const _request = require("request");
 const Twitter = require("./twitter-premium-search");
 
 const router = express.Router();
@@ -64,6 +62,7 @@ router.post("/search", support.verifyUser, (request, response) => {
 });
 
 router.get("/rate", (request, response) => {
+    console.log("getting rate");
     twitter.getRateLimit((err, data, res) => {
         response.json(JSON.parse(data.body));
     });

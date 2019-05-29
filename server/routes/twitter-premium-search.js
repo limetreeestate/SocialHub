@@ -1,9 +1,10 @@
 /*jshint esversion: 6 */
-const _request = require("request");
+const request = require("request");
 
 class Twitter {
     constructor() {
-        this.baseURL = "https://api.twitter.com/1.1/tweets/search/30day/sclhb.json";
+        this._30dayURL = "https://api.twitter.com/1.1/tweets/search/30day/sclhb.json";
+        this.fullArchiveURL = "https://api.twitter.com/1.1/tweets/search/fullarchive/sclhbfull.json";
         this.config = {
             consumerKey: 'um6jF7ckNjIYv1x1RDzK6Icmj',
             consumerSecret: 'T20pITV3BQalhkYHQhWnq8BKyepW5peqZG9s1IB7JvkfMEPfPb',
@@ -20,7 +21,7 @@ class Twitter {
         const form = { grant_type: "client_credentials" };
         const headers = { Authorization: `Basic ${encryptedHeader}` }
         //Send request for access token
-        _request.post("https://api.twitter.com/oauth2/token", { form, headers }, (err, res, body) => {
+        request.post("https://api.twitter.com/oauth2/token", { form, headers }, (err, res, body) => {
             const temp = JSON.parse(body);
             if (err)
                 console.log(err);
@@ -50,7 +51,7 @@ class Twitter {
             query += " to:" + params["to:"];
         }
         //Get URL
-        let finalURL = `${this.baseURL}?query=${query}&maxResults=50`;
+        let finalURL = `${this._30dayURL}?query=${query}&maxResults=50`;
         //Append date params to the get url
         if (fromDate != null) {
             finalURL += "&fromDate=" + fromDate;
@@ -64,13 +65,13 @@ class Twitter {
         console.log(finalURL)
         const headers = { Authorization: 'Bearer ' + this.config.bearerToken };
         //HTTP request to twitter premium search API
-        _request.get(finalURL, {headers}, callback);
+        request.get(finalURL, {headers}, callback);
     }
 
     getRateLimit(callback) {
         //https://api.twitter.com/1.1/application/rate_limit_status.json
         const headers = { Authorization: 'Bearer ' + this.config.bearerToken };
-        _request.get("https://api.twitter.com/1.1/application/rate_limit_status.json",{headers}, callback);
+        request.get("https://api.twitter.com/1.1/application/rate_limit_status.json",{headers}, callback);
     }
 }
 

@@ -17,7 +17,7 @@ router.use(bodyParser.json());
 mongoose.Promise = Promise;
 
 //Create database connection for client
-mongoose.connect("mongodb://client:client123@localhost:27017/socialhub")
+mongoose.connect("mongodb://client:client123@localhost:27017/socialhub", {useNewUrlParser: true})
 .then(() => console.log("Mongoose connection established"));
 
 
