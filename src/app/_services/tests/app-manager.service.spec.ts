@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthService } from './authentication.service';
+import { AppManagerService } from '../app-manager.service';
 
-describe('DatabaseService', () => {
+describe('AppManagerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AuthService = TestBed.get(AuthService);
+    const service: AppManagerService = TestBed.get(AppManagerService);
     expect(service).toBeTruthy();
   });
 });

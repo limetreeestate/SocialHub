@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FacebookManagerService } from './facebook-manager.service';
+import { FacebookManagerService } from '../facebook-manager.service';
 
 describe('FacebookManagerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

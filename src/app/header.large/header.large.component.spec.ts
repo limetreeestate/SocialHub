@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Header.LargeComponent } from './header.large.component';
+import { HeaderLargeComponent } from './header.large.component';
 
-describe('Header.LargeComponent', () => {
-  let component: Header.LargeComponent;
-  let fixture: ComponentFixture<Header.LargeComponent>;
+describe('HeaderLargeComponent', () => {
+  let component: HeaderLargeComponent;
+  let fixture: ComponentFixture<HeaderLargeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Header.LargeComponent ]
+      declarations: [ HeaderLargeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Header.LargeComponent);
+    fixture = TestBed.createComponent(HeaderLargeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
